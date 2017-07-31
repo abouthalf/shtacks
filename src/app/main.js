@@ -2,7 +2,7 @@ const _ = require('lodash');
 const letters = require('./letters.js');
 const loadLetter = require('./load-letter.js');
 
-
+// Let's just try loading all the pimages first
 _.forEach(_.keys(letters), letter => {
     loadLetter(letter, function(event) {
         console.log(this.src);
