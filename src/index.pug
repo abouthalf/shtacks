@@ -6,4 +6,9 @@ html(lang='en')
         meta(name='viewport',content='width=device-width,initial-scale=1.0')
         link(href='/css/main.css',rel='stylesheet')
     body
-        canvas#shtack
+        input#capture(type="text",autofocus, value="type something")
+        canvas#shtack(height=600, width=800)
+        footer
+            p shtacks 
+        script
+            include ../docs/js/main.js

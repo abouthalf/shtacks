@@ -4,6 +4,8 @@ const gulp = require('gulp'),
 	clean = require('gulp-clean'),
 	less = require('gulp-less'),
 	pug = require('gulp-pug'),
+	browser = require('gulp-browser'),
+	uglify = require('gulp-uglify'),
     server = require("gulp-webserver");
     
 const LessPluginAutoPrefix = require('less-plugin-autoprefix'),
@@ -13,7 +15,7 @@ const cleanCss = new LessPluginCleanCSS({advanced: true}),
     autoPreFix = new LessPluginAutoPrefix({browsers: ["last 2 versions"]});
     
 gulp.task('clean', () => {
-	return gulp.src(['docs/**/*.html','docs/**/*.css'])
+	return gulp.src(['docs/**/*.html','docs/**/*.css','docs/**/*.js'])
 		.pipe(clean());
 });
 
@@ -29,7 +31,14 @@ gulp.task('html', () => {
 		.pipe(gulp.dest('docs'));
 });
 
-gulp.task('default', ['css', 'html'], () => {});
+gulp.task('browserify', () => {
+	return gulp.src('src/app/main.js')
+		.pipe(browser.browserify())
+		// .pipe(uglify())
+		.pipe(gulp.dest('docs/js'))
+});
+
+gulp.task('default', ['css', 'browserify','html'], () => {});
 
 gulp.task('server',['default'],function(){
 	gulp.src('docs')
