@@ -1,0 +1,18 @@
+{
+  "name": "shtacks",
+  "version": "1.0.0",
+  "description": "Painterly letters",
+  "main": "index.js",
+  "repository": "https://github.com/abouthalf/shtacks",
+  "author": "Michael Barrett <mb@abouthalf.com>",
+  "license": "MIT",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean": "^0.3.2",
+    "gulp-less": "^3.3.2",
+    "gulp-pug": "^3.3.0",
+    "gulp-webserver": "^0.9.1",
+    "less-plugin-autoprefix": "^1.5.1",
+    "less-plugin-clean-css": "^1.5.1"
+  }
+}
