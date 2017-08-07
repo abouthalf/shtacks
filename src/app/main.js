@@ -31,7 +31,7 @@ function setQuery() {
 window.addEventListener('resize', _.debounce(rewrite, 200));
 input.addEventListener('input', _.debounce(rewrite, 50));
 input.addEventListener('input', _.debounce(setQuery, 50));
-if ('download' in download) {
+if (!_.isUndefined(download.download)) {
     download.addEventListener('click', event => {
         download.href = canvas.toDataURL("image/png");
         download.download = slugify(input.value) + ".png";
