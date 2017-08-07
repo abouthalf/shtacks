@@ -37,7 +37,7 @@ if (!_.isUndefined(download.download)) {
         download.download = slugify(input.value) + ".png";
     });
 } else {
-    download.parentNode.removeChild(download);
+    download.parentElement.removeChild(download);
 }
 
 window.addEventListener('popstate', event => {
