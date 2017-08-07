@@ -1,23 +1,31 @@
+const replaceGlyphs = require('./replace-glyphs');
+
 let lastText = "";
 
 /**
  * @typedef {object} TextState A container object with the current text state
  * @property {string} previous Previous complete text state
  * @property {string} current Current complete text state
- * @property {delta} delta computed difference between previous and current
  */
 
 /**
- * 
+ * Given an input element, extract the text value. 
+ * Store the current value so it can be re
  * @param {HTMLInputElement} input 
  * @returns {TextState}
  */
 function getText(input) {
+    // capture
+    let currentText = replaceGlyphs(input.value).toUpperCase(),
+        previousText = lastText;
 
+    // set lastText to current
+    lastText = currentText;
     
     return {
-        previous: "",
-        current: "",
-        delta: ""
+        previous: previousText,
+        current: currentText
     }
 }
+
+module.exports = getText;

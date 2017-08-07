@@ -1,21 +1,38 @@
-const _ = require('lodash');
-const letters = require('./letters.js');
-const loadLetter = require('./load-letter.js');
+const _ = require('lodash'),
+    slugify = require('slugify'),
+    setText = require('./set-text.js'),
+    write = require('./write.js');
 
-// Let's just try loading all the pimages first
-_.forEach(_.keys(letters), letter => {
-    loadLetter(letter, function(event) {
-        console.log(this.src);
-    });
+// let's get some elements
+/** @type {HTMLInputElement} */
+let input = document.getElementById('capture');
+/** @type {HTMLCanvasElement} */
+let canvas = document.getElementById('shtack');
+/** @type {HTMLAnchorElement} */
+let download = document.getElementById('download');
+
+// if there is text in the query string, set it as the iput value
+setText(input, global.location.search);
+
+// go go go
+write(input, canvas);
+
+// handle events
+function rewrite() {
+    write(input, canvas);
+}
+function setQuery() {
+    let q = '?' + encodeURIComponent(input.value);
+    window.history.pushState(null, input.value, q);
+}
+window.addEventListener('resize', _.debounce(rewrite, 200));
+input.addEventListener('input', _.debounce(rewrite, 50));
+input.addEventListener('input', _.debounce(setQuery, 50));
+download.addEventListener('click', event => {
+    download.href = canvas.toDataURL();
+    download.download = slugify(input.value) + ".png";
 });
-
-// load letters
-    // get initial content
-    // sort letters by content
-    // for each letter, create an image
-    // on load draw letter
-// capture input
-// draw letters
-// get coordinates
-// resize
-
+window.addEventListener('popstate', event => {
+    setText(input, global.location.search);
+    rewrite();
+});

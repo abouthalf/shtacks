@@ -17087,31 +17087,223 @@
 
 }).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
 },{}],2:[function(require,module,exports){
-const _ = require('lodash');
-const letters = require('./letters.js');
-const loadLetter = require('./load-letter.js');
 
-// Let's just try loading all the pimages first
-_.forEach(_.keys(letters), letter => {
-    loadLetter(letter, function(event) {
-        console.log(this.src);
-    });
+;(function (name, root, factory) {
+  if (typeof exports === 'object') {
+    module.exports = factory()
+  }
+  /* istanbul ignore next */
+  else if (typeof define === 'function' && define.amd) {
+    define(factory)
+  }
+  else {
+    root[name] = factory()
+  }
+}('slugify', this, function () {
+  var charMap = {
+    // latin
+    'À': 'A', 'Á': 'A', 'Â': 'A', 'Ã': 'A', 'Ä': 'A', 'Å': 'A', 'Æ': 'AE',
+    'Ç': 'C', 'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E', 'Ì': 'I', 'Í': 'I',
+    'Î': 'I', 'Ï': 'I', 'Ð': 'D', 'Ñ': 'N', 'Ò': 'O', 'Ó': 'O', 'Ô': 'O',
+    'Õ': 'O', 'Ö': 'O', 'Ő': 'O', 'Ø': 'O', 'Ù': 'U', 'Ú': 'U', 'Û': 'U',
+    'Ü': 'U', 'Ű': 'U', 'Ý': 'Y', 'Þ': 'TH', 'ß': 'ss', 'à': 'a', 'á': 'a',
+    'â': 'a', 'ã': 'a', 'ä': 'a', 'å': 'a', 'æ': 'ae', 'ç': 'c', 'è': 'e',
+    'é': 'e', 'ê': 'e', 'ë': 'e', 'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i',
+    'ð': 'd', 'ñ': 'n', 'ò': 'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o',
+    'ő': 'o', 'ø': 'o', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ű': 'u',
+    'ý': 'y', 'þ': 'th', 'ÿ': 'y', 'ẞ': 'SS',
+    // greek
+    'α': 'a', 'β': 'b', 'γ': 'g', 'δ': 'd', 'ε': 'e', 'ζ': 'z', 'η': 'h', 'θ': '8',
+    'ι': 'i', 'κ': 'k', 'λ': 'l', 'μ': 'm', 'ν': 'n', 'ξ': '3', 'ο': 'o', 'π': 'p',
+    'ρ': 'r', 'σ': 's', 'τ': 't', 'υ': 'y', 'φ': 'f', 'χ': 'x', 'ψ': 'ps', 'ω': 'w',
+    'ά': 'a', 'έ': 'e', 'ί': 'i', 'ό': 'o', 'ύ': 'y', 'ή': 'h', 'ώ': 'w', 'ς': 's',
+    'ϊ': 'i', 'ΰ': 'y', 'ϋ': 'y', 'ΐ': 'i',
+    'Α': 'A', 'Β': 'B', 'Γ': 'G', 'Δ': 'D', 'Ε': 'E', 'Ζ': 'Z', 'Η': 'H', 'Θ': '8',
+    'Ι': 'I', 'Κ': 'K', 'Λ': 'L', 'Μ': 'M', 'Ν': 'N', 'Ξ': '3', 'Ο': 'O', 'Π': 'P',
+    'Ρ': 'R', 'Σ': 'S', 'Τ': 'T', 'Υ': 'Y', 'Φ': 'F', 'Χ': 'X', 'Ψ': 'PS', 'Ω': 'W',
+    'Ά': 'A', 'Έ': 'E', 'Ί': 'I', 'Ό': 'O', 'Ύ': 'Y', 'Ή': 'H', 'Ώ': 'W', 'Ϊ': 'I',
+    'Ϋ': 'Y',
+    // turkish
+    'ş': 's', 'Ş': 'S', 'ı': 'i', 'İ': 'I', 'ç': 'c', 'Ç': 'C', 'ü': 'u', 'Ü': 'U',
+    'ö': 'o', 'Ö': 'O', 'ğ': 'g', 'Ğ': 'G',
+    // russian
+    'а': 'a', 'б': 'b', 'в': 'v', 'г': 'g', 'д': 'd', 'е': 'e', 'ё': 'yo', 'ж': 'zh',
+    'з': 'z', 'и': 'i', 'й': 'j', 'к': 'k', 'л': 'l', 'м': 'm', 'н': 'n', 'о': 'o',
+    'п': 'p', 'р': 'r', 'с': 's', 'т': 't', 'у': 'u', 'ф': 'f', 'х': 'h', 'ц': 'c',
+    'ч': 'ch', 'ш': 'sh', 'щ': 'sh', 'ъ': 'u', 'ы': 'y', 'ь': '', 'э': 'e', 'ю': 'yu',
+    'я': 'ya',
+    'А': 'A', 'Б': 'B', 'В': 'V', 'Г': 'G', 'Д': 'D', 'Е': 'E', 'Ё': 'Yo', 'Ж': 'Zh',
+    'З': 'Z', 'И': 'I', 'Й': 'J', 'К': 'K', 'Л': 'L', 'М': 'M', 'Н': 'N', 'О': 'O',
+    'П': 'P', 'Р': 'R', 'С': 'S', 'Т': 'T', 'У': 'U', 'Ф': 'F', 'Х': 'H', 'Ц': 'C',
+    'Ч': 'Ch', 'Ш': 'Sh', 'Щ': 'Sh', 'Ъ': 'U', 'Ы': 'Y', 'Ь': '', 'Э': 'E', 'Ю': 'Yu',
+    'Я': 'Ya',
+    // ukranian
+    'Є': 'Ye', 'І': 'I', 'Ї': 'Yi', 'Ґ': 'G', 'є': 'ye', 'і': 'i', 'ї': 'yi', 'ґ': 'g',
+    // czech
+    'č': 'c', 'ď': 'd', 'ě': 'e', 'ň': 'n', 'ř': 'r', 'š': 's', 'ť': 't', 'ů': 'u',
+    'ž': 'z', 'Č': 'C', 'Ď': 'D', 'Ě': 'E', 'Ň': 'N', 'Ř': 'R', 'Š': 'S', 'Ť': 'T',
+    'Ů': 'U', 'Ž': 'Z',
+    // polish
+    'ą': 'a', 'ć': 'c', 'ę': 'e', 'ł': 'l', 'ń': 'n', 'ó': 'o', 'ś': 's', 'ź': 'z',
+    'ż': 'z', 'Ą': 'A', 'Ć': 'C', 'Ę': 'e', 'Ł': 'L', 'Ń': 'N', 'Ś': 'S',
+    'Ź': 'Z', 'Ż': 'Z',
+    // latvian
+    'ā': 'a', 'č': 'c', 'ē': 'e', 'ģ': 'g', 'ī': 'i', 'ķ': 'k', 'ļ': 'l', 'ņ': 'n',
+    'š': 's', 'ū': 'u', 'ž': 'z', 'Ā': 'A', 'Č': 'C', 'Ē': 'E', 'Ģ': 'G', 'Ī': 'i',
+    'Ķ': 'k', 'Ļ': 'L', 'Ņ': 'N', 'Š': 'S', 'Ū': 'u', 'Ž': 'Z',
+    // currency
+    '€': 'euro', '₢': 'cruzeiro', '₣': 'french franc', '£': 'pound',
+    '₤': 'lira', '₥': 'mill', '₦': 'naira', '₧': 'peseta', '₨': 'rupee',
+    '₩': 'won', '₪': 'new shequel', '₫': 'dong', '₭': 'kip', '₮': 'tugrik',
+    '₯': 'drachma', '₰': 'penny', '₱': 'peso', '₲': 'guarani', '₳': 'austral',
+    '₴': 'hryvnia', '₵': 'cedi', '¢': 'cent', '¥': 'yen', '元': 'yuan',
+    '円': 'yen', '﷼': 'rial', '₠': 'ecu', '¤': 'currency', '฿': 'baht',
+    '$': 'dollar',
+    // symbols
+    '©': '(c)', 'œ': 'oe', 'Œ': 'OE', '∑': 'sum', '®': '(r)', '†': '+',
+    '“': '"', '”': '"', '‘': "'", '’': "'", '∂': 'd', 'ƒ': 'f', '™': 'tm',
+    '℠': 'sm', '…': '...', '˚': 'o', 'º': 'o', 'ª': 'a', '•': '*',
+    '∆': 'delta', '∞': 'infinity', '♥': 'love', '&': 'and', '|': 'or',
+    '<': 'less', '>': 'greater'
+  }
+
+  function replace (string, replacement) {
+    return string.split('').reduce(function (result, ch) {
+      if (charMap[ch]) {
+        ch = charMap[ch]
+      }
+      // allowed
+      ch = ch.replace(/[^\w\s$*_+~.()'"!\-:@]/g, '')
+      result += ch
+      return result
+    }, '')
+      // trim leading/trailing spaces
+      .replace(/^\s+|\s+$/g, '')
+      // convert spaces
+      .replace(/[-\s]+/g, replacement || '-')
+      // remove trailing separator
+      .replace('#{replacement}$', '')
+  }
+
+  replace.extend = function (customMap) {
+    for (var key in customMap) {
+      charMap[key] = customMap[key]
+    }
+  }
+
+  return replace
+}))
+
+},{}],3:[function(require,module,exports){
+(function (global){
+const _ = require('lodash'),
+    slugify = require('slugify'),
+    setText = require('./set-text.js'),
+    write = require('./write.js');
+
+// let's get some elements
+/** @type {HTMLInputElement} */
+let input = document.getElementById('capture');
+/** @type {HTMLCanvasElement} */
+let canvas = document.getElementById('shtack');
+/** @type {HTMLAnchorElement} */
+let download = document.getElementById('download');
+
+// if there is text in the query string, set it as the iput value
+setText(input, global.location.search);
+
+// go go go
+write(input, canvas);
+
+// handle events
+function rewrite() {
+    write(input, canvas);
+}
+function setQuery() {
+    let q = '?' + encodeURIComponent(input.value);
+    window.history.pushState(null, input.value, q);
+}
+window.addEventListener('resize', _.debounce(rewrite, 200));
+input.addEventListener('input', _.debounce(rewrite, 50));
+input.addEventListener('input', _.debounce(setQuery, 50));
+download.addEventListener('click', event => {
+    download.href = canvas.toDataURL();
+    download.download = slugify(input.value) + ".png";
+});
+window.addEventListener('popstate', event => {
+    setText(input, global.location.search);
+    rewrite();
 });
 
-// load letters
-    // get initial content
-    // sort letters by content
-    // for each letter, create an image
-    // on load draw letter
-// capture input
-// draw letters
-// get coordinates
-// resize
+}).call(this,typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : typeof window !== "undefined" ? window : {})
+},{"./set-text.js":9,"./write.js":11,"lodash":1,"slugify":2}],4:[function(require,module,exports){
+const _ = require('lodash');
 
 
-},{"./letters.js":3,"./load-letter.js":4,"lodash":1}],3:[function(require,module,exports){
+/**
+ * @typedef {object} WriteDimensions
+ * @property {number} width width in pixels
+ * @property {number} height height in pixels
+ * @property {number} rows total rows of letters
+ * @property {number} cols total columns of letters
+ */
+
+/**
+ * 
+ * @param {number} w width of drawing area
+ * @param {number} l length of string of text
+ * @param {number} d dimensions (square) of a letter
+ * @return {WriteDimensions}
+ */
+function getDimensions(w, l, d) {
+    let cols = Math.floor(w/d);
+    let width = cols * d;
+    let rows = (cols > l) ? 1 : Math.floor(l / cols) + (l % cols);
+    let height = rows * d;
+    return {
+        width,
+        height,
+        rows,
+        cols
+    }
+}
+
+module.exports = getDimensions;
+},{"lodash":1}],5:[function(require,module,exports){
+const replaceGlyphs = require('./replace-glyphs');
+
+let lastText = "";
+
+/**
+ * @typedef {object} TextState A container object with the current text state
+ * @property {string} previous Previous complete text state
+ * @property {string} current Current complete text state
+ */
+
+/**
+ * Given an input element, extract the text value. 
+ * Store the current value so it can be re
+ * @param {HTMLInputElement} input 
+ * @returns {TextState}
+ */
+function getText(input) {
+    // capture
+    let currentText = replaceGlyphs(input.value).toUpperCase(),
+        previousText = lastText;
+
+    // set lastText to current
+    lastText = currentText;
+    
+    return {
+        previous: previousText,
+        current: currentText
+    }
+}
+
+module.exports = getText;
+},{"./replace-glyphs":8}],6:[function(require,module,exports){
 const Letters = {
-    _heart: "_heart.jpg",
+    "\u2764": "_heart.jpg",
     _space: ["_space_blue.jpg", "_space_green.jpg", "_space_red.jpg", "_space_yellow.jpg"],
     A: "A.jpg",
     B: "B.jpg",
@@ -17144,21 +17336,44 @@ const Letters = {
 module.exports = Letters;
 
 
-},{}],4:[function(require,module,exports){
+},{}],7:[function(require,module,exports){
 const _ = require('lodash'),
     letters = require('./letters.js');
+
+// Image bucket
+let images = {};
 
 /**
  * Load an image by letter or name
  * 
  * @param {string} letter 
- * @param {function} callback 
+ * @param {function} callback called in the scope of the image 
  * @returns {HTMLImageElement|void}
  */
 function loadLetter(letter, callback) {
+    // sanitize callback
+    if (!_.isFunction(callback)) {
+        callback = _.noop();
+    }
+
+    /*
+    if the image has already been cached, 
+    return from cache and call the onload function
+    */
+    if (!_.isUndefined(images[letter])) {
+        let img = images[letter];
+        callback.apply(img);
+        return images[img];
+    }
+
+    /*
+    if the image has not been cached, load
+    and call callback onload.
+    */
     let src,
         chosen,
         img;
+    
     // randomly select a colored space block
     if ([' ', '_space', 'space'].indexOf(letter) > -1) {
         let spaces = letters._space,
@@ -17172,9 +17387,8 @@ function loadLetter(letter, callback) {
     if (chosen) {
         src = `img/${chosen}`;
         img = new Image();
-        if (_.isFunction(callback)) {
-            img.addEventListener('load', callback);
-        }
+        img.dataset.letter = letter;
+        img.addEventListener('load', callback);
         img.src = src;
         return img;
     }
@@ -17182,4 +17396,115 @@ function loadLetter(letter, callback) {
 }
 
 module.exports = loadLetter;
-},{"./letters.js":3,"lodash":1}]},{},[2]);
+},{"./letters.js":6,"lodash":1}],8:[function(require,module,exports){
+const _ = require('lodash');
+
+/**
+ * ❤
+ */
+const heart = "\u2764";
+const placeholdersToUnicode = {
+    ":heart:": heart,
+    "_heart": heart,
+    "_heart_": heart,
+    "<3": heart
+};
+
+/**
+ * Replace glyph placeholders like :heart: with their unicode equivalent
+ * @param {string} text 
+ * @return string
+ */
+function replaceGlyphs(text) {
+    _.forEach(_.keys(placeholdersToUnicode), placeholder => {
+        text = text.replace(placeholder, placeholdersToUnicode[placeholder]);
+    })
+    return text;
+}
+
+module.exports = replaceGlyphs;
+},{"lodash":1}],9:[function(require,module,exports){
+/**
+ * Extract the query string text and set as the value in input
+ * @param {HTMLInputElement} input 
+ * @param {string} search
+ * @returns undefined
+ */
+function setText(input, search) {
+    let s = search.substr(1);
+    if (s) {
+        input.value = decodeURIComponent(s);
+    }
+    else {
+        input.value = input.placeholder;
+    }
+}
+
+module.exports = setText;
+},{}],10:[function(require,module,exports){
+
+/**
+ * Convenient wrapper around the draw image method
+ * 
+ * This does _nothing_ right now but passes through,
+ * but maybe one day it will handle fade-in or something neat.
+ * 
+ * @param {CanvasRenderingContext2D} ctx 
+ * @param {HTMLImageElement} img 
+ * @param {number} x 
+ * @param {number} y 
+ * @param {number} w 
+ * @param {number} h 
+ */
+function writeLetter(ctx, img, x, y, w, h) {
+    ctx.drawImage(img, x, y, w, h);
+}
+
+module.exports = writeLetter;
+},{}],11:[function(require,module,exports){
+const _ = require('lodash'),
+    getText = require('./get-text.js'),
+    getDimensions = require('./get-dimensions.js'),
+    loadLetter = require('./load-letter.js'),
+    writeLetter = require('./write-letter.js');
+
+/**
+ * Write the text from input into canvas
+ * 
+ * @param {HTMLInputElement} input 
+ * @param {HTMLCanvasElement} canvas 
+ */
+function write(input, canvas) {
+    // let's pick a square dimension for our letters
+    let square = 150; 
+    // get the drawing context
+    let ctx = canvas.getContext('2d');
+    // get the text
+    let textState = getText(input);
+    // get window width
+    let width = document.documentElement.clientWidth;
+    // calculate canvas size from text
+    let l = textState.current.length
+    let dimensions = getDimensions(width, l, square);
+    // clear and resize canvas
+    ctx.clearRect(0,0, canvas.width, canvas.height);
+    canvas.width = dimensions.width;
+    canvas.height = dimensions.height;
+    // create a table of letters to load
+    let table = _.chunk(textState.current.split(''), dimensions.cols);
+    _.forEach(table, (row, i) => {
+        let y = i * square;
+        _.forEach(row, (letter, j) => {
+            let x = j * square;
+            loadLetter(letter, function() {
+                let img = this;
+                requestAnimationFrame(() => {
+                    writeLetter(ctx, img, x,y, square, square);
+                });
+            });
+        });
+    });
+}
+
+module.exports = write;
+},{"./get-dimensions.js":4,"./get-text.js":5,"./load-letter.js":7,"./write-letter.js":10,"lodash":1}]},{},[3]);

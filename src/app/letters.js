@@ -1,5 +1,5 @@
 const Letters = {
-    _heart: "_heart.jpg",
+    "\u2764": "_heart.jpg",
     _space: ["_space_blue.jpg", "_space_green.jpg", "_space_red.jpg", "_space_yellow.jpg"],
     A: "A.jpg",
     B: "B.jpg",
