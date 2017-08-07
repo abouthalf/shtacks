@@ -17227,7 +17227,7 @@ window.addEventListener('resize', _.debounce(rewrite, 200));
 input.addEventListener('input', _.debounce(rewrite, 50));
 input.addEventListener('input', _.debounce(setQuery, 50));
 download.addEventListener('click', event => {
-    download.href = canvas.toDataURL();
+    download.href = canvas.toDataURL("image/png");
     download.download = slugify(input.value) + ".png";
 });
 window.addEventListener('popstate', event => {
