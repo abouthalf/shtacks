@@ -18,7 +18,8 @@ const placeholdersToUnicode = {
  */
 function replaceGlyphs(text) {
     _.forEach(_.keys(placeholdersToUnicode), placeholder => {
-        text = text.replace(placeholder, placeholdersToUnicode[placeholder]);
+        let r = new RegExp(placeholder, 'gi');
+        text = text.replace(r, placeholdersToUnicode[placeholder]);
     })
     return text;
 }
