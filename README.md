@@ -28,7 +28,7 @@ image may be downloaded with the down-arrow button at the bottom of the page.
 
 Type with 26 letters of the English alphabet and randomly selected colored spaces.
 
-# 1.0.1 
+## 1.0.1 
 
 * Add exclamation point, period, and comma. 
 * Remove underline from download link
