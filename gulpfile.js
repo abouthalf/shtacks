@@ -25,7 +25,7 @@ gulp.task('css', () => {
 		.pipe(gulp.dest('docs/css'));;
 });
 
-gulp.task('html', () => {
+gulp.task('html', ['browserify'], () => {
 	return gulp.src('src/**/*.pug')
 		.pipe(pug())
 		.pipe(gulp.dest('docs'));
