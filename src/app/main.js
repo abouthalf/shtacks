@@ -11,9 +11,6 @@ let canvas = document.getElementById('shtack');
 /** @type {HTMLAnchorElement} */
 let download = document.getElementById('download');
 
-// is this a phone?
-
-
 // if there is text in the query string, set it as the iput value
 setText(input, global.location.search);
 
@@ -31,12 +28,15 @@ function setQuery() {
 window.addEventListener('resize', _.debounce(rewrite, 200));
 input.addEventListener('input', _.debounce(rewrite, 50));
 input.addEventListener('input', _.debounce(setQuery, 50));
+
 if (!_.isUndefined(download.download)) {
-    download.addEventListener('click', event => {
-        download.href = canvas.toDataURL("image/png");
+    let click = event => {
+        download.href = canvas.toDataURL();
         download.download = slugify(input.value) + ".png";
-    });
+    };
+    download.addEventListener('click', click);
 } else {
+    // if download is unsupported you find yourself in data URI hell
     download.parentElement.removeChild(download);
 }
 

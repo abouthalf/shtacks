@@ -11,14 +11,14 @@ const _ = require('lodash'),
  * @param {HTMLCanvasElement} canvas 
  */
 function write(input, canvas) {
-    // let's pick a square dimension for our letters
-    let square = 150; 
     // get the drawing context
     let ctx = canvas.getContext('2d');
     // get the text
     let textState = getText(input);
     // get window width
     let width = document.documentElement.clientWidth;
+    // let's pick a square dimension for our letters
+    let square = width >= 600 ? 150 : 75; 
     // calculate canvas size from text
     let l = textState.current.length
     let dimensions = getDimensions(width, l, square);
