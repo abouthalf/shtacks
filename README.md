@@ -34,3 +34,7 @@ Type with 26 letters of the English alphabet and randomly selected colored space
 * Remove underline from download link
 * Fix build order in gulp file
 * Enhance README
+
+## 1.0.2
+
+* Add apostrophe and asterisk
