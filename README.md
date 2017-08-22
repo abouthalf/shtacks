@@ -38,3 +38,9 @@ Type with 26 letters of the English alphabet and randomly selected colored space
 ## 1.0.2
 
 * Add apostrophe and asterisk
+
+## 1.0.3
+
+* Add numbers
+* Question mark and octothorpe
+* Add smartquotes

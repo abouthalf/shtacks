@@ -1,4 +1,5 @@
 const replaceGlyphs = require('./replace-glyphs');
+const smartquotes = require('smartquotes');
 
 let lastText = "";
 
@@ -16,7 +17,7 @@ let lastText = "";
  */
 function getText(input) {
     // capture
-    let currentText = replaceGlyphs(input.value).toUpperCase(),
+    let currentText = smartquotes(replaceGlyphs(input.value).toUpperCase()),
         previousText = lastText;
 
     // set lastText to current
