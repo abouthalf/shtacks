@@ -7,17 +7,14 @@ const Letters = {
     "'": "_apostrophe.jpg",
     "’": "_apostrophe.jpg",
     "*": "_astersk.jpg",
-<<<<<<< HEAD
     "@": "_at.jpg",
     "&": "_ampersand.jpg",
     "$": "_dollar.jpg",
     "%": "_percent.jpg",
-=======
     "#": "_octothorpe.jpg",
     "“": "_left_quote.jpg",
     "”": "_right_quote.jpg",
     "?": "_question.jpg",
->>>>>>> 8c66432ca64a5b64ec4865d274157a2a39fb96de
     A: "A.jpg",
     B: "B.jpg",
     C: "C.jpg",

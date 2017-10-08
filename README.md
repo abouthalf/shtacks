@@ -44,3 +44,12 @@ Type with 26 letters of the English alphabet and randomly selected colored space
 * Add numbers
 * Question mark and octothorpe
 * Add smartquotes
+
+## 1.0.4
+
+Now you can @ mention and quote a price.
+
+* Add @
+* Add $
+* Add %
+* Add &
