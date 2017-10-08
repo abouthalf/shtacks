@@ -1,6 +1,6 @@
 {
   "name": "shtacks",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Painterly letters",
   "main": "index.js",
   "repository": "https://github.com/abouthalf/shtacks",
@@ -17,6 +17,7 @@
     "less-plugin-autoprefix": "^1.5.1",
     "less-plugin-clean-css": "^1.5.1",
     "lodash": "^4.17.4",
-    "slugify": "^1.1.0"
+    "slugify": "^1.1.0",
+    "smartquotes": "^2.1.2"
   }
 }

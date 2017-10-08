@@ -7,10 +7,17 @@ const Letters = {
     "'": "_apostrophe.jpg",
     "’": "_apostrophe.jpg",
     "*": "_astersk.jpg",
+<<<<<<< HEAD
     "@": "_at.jpg",
     "&": "_ampersand.jpg",
     "$": "_dollar.jpg",
     "%": "_percent.jpg",
+=======
+    "#": "_octothorpe.jpg",
+    "“": "_left_quote.jpg",
+    "”": "_right_quote.jpg",
+    "?": "_question.jpg",
+>>>>>>> 8c66432ca64a5b64ec4865d274157a2a39fb96de
     A: "A.jpg",
     B: "B.jpg",
     C: "C.jpg",
@@ -36,7 +43,17 @@ const Letters = {
     W: "W.jpg",
     X: "X.jpg",
     Y: "Y.jpg",
-    Z: "Z.jpg"
+    Z: "Z.jpg",
+    "0": "0.jpg",
+    "1": "1.jpg",
+    "2": "2.jpg",
+    "3": "3.jpg",
+    "4": "4.jpg",
+    "5": "5.jpg",
+    "6": "6.jpg",
+    "7": "7.jpg",
+    "8": "8.jpg",
+    "9": "9.jpg"
 };
 
 module.exports = Letters;

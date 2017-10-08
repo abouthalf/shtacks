@@ -2947,6 +2947,10 @@ smartq@^1.1.6:
     typings-global "^1.0.19"
     util.promisify "^1.0.0"
 
+smartquotes@^2.1.2:
+  version "2.1.2"
+  resolved "https://registry.yarnpkg.com/smartquotes/-/smartquotes-2.1.2.tgz#dc7843bd81385ceb7930213f69f69302e233820d"
+
 smartshell@^1.0.6:
   version "1.0.13"
   resolved "https://registry.yarnpkg.com/smartshell/-/smartshell-1.0.13.tgz#277b34e6624df70003e0e3a6c900cd5ebab7eb92"
