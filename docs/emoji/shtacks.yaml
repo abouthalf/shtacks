@@ -108,3 +108,9 @@ emojis:
     name: _y
   - src: http://shtacks.com/emoji/Z.png
     name: _z
+  - src: http://shtacks.com/emoji/_plus.png
+    name: _plus
+  - src: http://shtacks.com/emoji/_dash.png
+    name: _dash
+  - src: http://shtacks.com/emoji/_equals.png
+    name: _equals
