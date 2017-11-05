@@ -29,16 +29,26 @@ window.addEventListener('resize', _.debounce(rewrite, 200));
 input.addEventListener('input', _.debounce(rewrite, 50));
 input.addEventListener('input', _.debounce(setQuery, 50));
 
+let click;
 if (!_.isUndefined(download.download)) {
-    let click = event => {
+    click = event => {
         download.href = canvas.toDataURL();
         download.download = slugify(input.value) + ".png";
     };
-    download.addEventListener('click', click);
 } else {
     // if download is unsupported you find yourself in data URI hell
-    download.parentElement.removeChild(download);
+    /**
+     * @param {Event} event 
+     */
+    click = event => {
+        let image = `<img src="${canvas.toDataURL()}" />`;
+        let w = window.open();
+        w.document.write(image);
+        event.preventDefault();
+        event.stopPropagation();
+    }
 }
+download.addEventListener('click', click);
 
 window.addEventListener('popstate', event => {
     setText(input, global.location.search);
