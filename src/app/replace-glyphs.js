@@ -8,7 +8,9 @@ const placeholdersToUnicode = {
     ":heart:": heart,
     "_heart": heart,
     "_heart_": heart,
-    "<3": heart
+    "<3": heart,
+    "–": "-", // en dash
+    "—": "-" // em dash
 };
 
 /**

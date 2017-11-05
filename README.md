@@ -53,3 +53,9 @@ Now you can @ mention and quote a price.
 * Add $
 * Add %
 * Add &
+
+## 1.0.5
+
+Now you can balance your checkbook.
+
+* Add plus, minus (hyphen), and equals

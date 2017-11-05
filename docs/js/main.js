@@ -17429,6 +17429,9 @@ const Letters = {
     "“": "_left_quote.jpg",
     "”": "_right_quote.jpg",
     "?": "_question.jpg",
+    "+": "_plus.jpg",
+    "=" : "_equals.jpg",
+    "-" : "_dash.jpg",
     A: "A.jpg",
     B: "B.jpg",
     C: "C.jpg",
@@ -17541,7 +17544,9 @@ const placeholdersToUnicode = {
     ":heart:": heart,
     "_heart": heart,
     "_heart_": heart,
-    "<3": heart
+    "<3": heart,
+    "–": "-", // en dash
+    "—": "-" // em dash
 };
 
 /**
