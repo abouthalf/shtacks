@@ -1,23 +1,5 @@
 {
   "name": "shtacks",
-  "version": "1.0.5",
-  "description": "Painterly letters",
-  "main": "index.js",
-  "repository": "https://github.com/abouthalf/shtacks",
-  "author": "Michael Barrett <mb@abouthalf.com>",
-  "license": "MIT",
-  "dependencies": {
-    "gulp": "^3.9.1",
-    "gulp-browser": "^3.0.6",
-    "gulp-clean": "^0.3.2",
-    "gulp-less": "^3.3.2",
-    "gulp-pug": "^3.3.0",
-    "gulp-uglify": "^3.0.0",
-    "gulp-webserver": "^0.9.1",
-    "less-plugin-autoprefix": "^1.5.1",
-    "less-plugin-clean-css": "^1.5.1",
-    "lodash": "^4.17.4",
-    "slugify": "^1.1.0",
-    "smartquotes": "^2.1.2"
-  }
+  "version": "0.1.0",
+  "private": true
 }
