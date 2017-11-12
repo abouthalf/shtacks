@@ -1,23 +1,43 @@
 import React, { Component} from 'react';
-import ReactDOM from 'react-dom';
 import './Shtacks.css';
 import Footer from './Footer';
 import Download from './Download';
+import ShtackCanvas from './ShtackCanvas';
+
+const defaultText = "type something abcdefghijklmnopqrstuvwxyz<3";
 
 class Shtacks extends Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      text: "type something abcdefghijklmnopqrstuvwxyz<3"
+      text: this.getInitialText()
     }
     this.handleTextChange = this.handleTextChange.bind(this);
     this.handleKeyDown = this.handleKeyDown.bind(this);
+    this.setCanvas = this.setCanvas.bind(this);
+    this.getCanvas = this.getCanvas.bind(this);
   }
 
-  componentDidMount() {
-    this.canvas = ReactDOM.findDOMNode(this.refs.shtack);
-    this.ctx = this.canvas.getContext('2d');
+  /**
+   * @param {HTMLCanvasElement} canvas 
+   */
+  setCanvas(canvas) {
+    this.canvas = canvas;
+  }
+
+  /**
+   * @return {HTMLCanvasElement}
+   */
+  getCanvas() {
+    return this.canvas;
+  }
+
+  getInitialText() {
+    if (global.location.search) {
+      return decodeURIComponent(global.location.search.substr(1));
+    }
+    return defaultText;
   }
 
   handleKeyDown(event) {
@@ -27,6 +47,9 @@ class Shtacks extends Component {
   }
 
   handleTextChange(event) {
+    let text = event.target.value;
+    let q = '?' + encodeURIComponent(text);
+    window.history.pushState(null, text, q);
     this.setState({text: event.target.value});
   }
 
@@ -40,9 +63,9 @@ class Shtacks extends Component {
           onChange={this.handleTextChange}
           onKeyDown={this.handleKeyDown}
           placeholder="type something abcdefghijklmnopqrstuvwxyz<3" />
-        <canvas ref="shtack" className="shtack" />
+        <ShtackCanvas text={this.state.text} setCanvas={this.setCanvas} />
         <Footer>
-          <Download />
+          <Download getCanvas={this.getCanvas} text={this.state.text}/>
         </Footer>
       </div>
     );
