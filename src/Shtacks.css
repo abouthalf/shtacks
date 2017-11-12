@@ -1,0 +1,16 @@
+.Shtacks .Capture{
+  display: block;
+  width: 100vw;
+  font-size: 1rem;
+  background: #999;
+  color: #eee;
+  padding: .5rem;
+  outline: none;
+  border: none;
+  border-radius: 0;
+}
+
+.shtack {
+  display: block;
+  margin: 1rem auto;
+}
