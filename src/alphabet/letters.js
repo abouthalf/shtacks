@@ -1,17 +1,10 @@
-import _heart from './_heart.jpg';
-import _space_blue from './_space_blue.jpg';
-import _space_green from './_space_green.jpg';
-import _space_red from './_space_red.jpg';
-import _space_yellow from './space_yellow.jpg';
-import _bang from './_bang.jpg';
-
 const letters = {
-    "\u2764": _heart,
+    "\u2764": require('./_heart.jpg'),
     _space: [
-        _space_blue, 
-        _space_green, 
-        _space_red.jpg, 
-        _space_yellow.jpg
+        require('./_space_blue.jpg'), 
+        require('./_space_green.jpg'), 
+        require('./_space_red.jpg') ,
+        require('./_space_yellow.jpg')
     ],
     "!": require("./_bang.jpg"),
     ",": require("./_comma.jpg"),
