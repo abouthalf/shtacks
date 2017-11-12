@@ -8,13 +8,13 @@ Using yarn...
 
 `yarn install`
 
-# Build the site with gulp
+# Build with Webpack
 
-`gulp` or `gulp default`
+`yarn run build`
 
 # Run the dev server with a file watcher
 
-`gulp server`
+`yarn start`
 
 # Type it
 
