@@ -2,7 +2,7 @@
   "name": "shtacks",
   "version": "1.1.0",
   "private": true,
-  "homepage": "https://abouthalf.github.io/shtacks",
+  "homepage": "http://shtacks.com",
   "dependencies": {
     "@types/react": "^16.0.22",
     "@types/react-dom": "^16.0.3",
