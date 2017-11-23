@@ -14,7 +14,8 @@ const placeholdersToUnicode = {
     "_heart_": heart,
     "<3": heart,
     "–": "-", // en dash
-    "—": "-" // em dash
+    "—": "-", // em dash
+    "\\.\\.\\.": "…" // ellipsis
 };
 
 export default class ShtackCanvas extends Component

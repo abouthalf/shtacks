@@ -63,3 +63,11 @@ Now you can balance your checkbook.
 ## 1.1.0
 
 Now with ReactJS. What? Bandwagon jumping is fun!
+
+## 1.1.1
+
+* Tilde
+* Pipe
+* Backslash
+* Forwardslash
+* Ellipsis
